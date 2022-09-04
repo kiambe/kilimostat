@@ -1,0 +1,10 @@
+<h1>Search Results</h1>
+
+<ul>
+  {% for theme in object_list %}
+    <li>
+      {{ theme.themename }}, {{ theme.description }}
+      
+    </li>
+  {% endfor %}
+</ul>

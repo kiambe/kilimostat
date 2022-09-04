@@ -1,0 +1,12 @@
+<h1>Add member</h1>
+
+<form action="addthemerecord/" method="post">
+{% csrf_token %}
+Theme Name:<br>
+<input name="themename">
+<br><br>
+Description:<br>
+<input name="description">
+<br><br>
+<input type="submit" value="Submit">
+</form>

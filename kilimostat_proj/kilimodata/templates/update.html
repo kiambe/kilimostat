@@ -1,0 +1,12 @@
+<h1>Update Theme</h1>
+
+<form action="updaterecord/{{ theme.themename }}" method="post">
+{% csrf_token %}
+Theme Name:<br>
+<input name="themename" value="{{ theme.themename }}">
+<br><br>
+Description:<br>
+<input name="description" value="{{ theme.description }}">
+<br><br>
+<input type="submit" value="Submit">
+</form>
