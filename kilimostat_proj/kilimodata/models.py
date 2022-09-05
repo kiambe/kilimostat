@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator 
 
-
+length = 256
 # Ignore this table was used for test
 class Thematic(models.Model):
   themename = models.CharField(max_length=255)
@@ -84,7 +84,34 @@ class County(models.Model):
   code = models.CharField(max_length=3, null=True) 
   def __str__(self):
         return str(self.name)
+      
 
+class SubCounty(models.Model):
+    id = models.CharField(max_length=100, primary_key=True)
+    county_id = models.ForeignKey('County', on_delete=models.CASCADE)
+    name = models.CharField(max_length=length, blank=True, null=True,)
+    lat = models.CharField(max_length=length, blank=True, null=True,)
+    lng = models.CharField(max_length=length, blank=True, null=True,)
+    category = models.CharField(max_length=length, blank=True, null=True,)
+    code = models.CharField(max_length=length, blank=True, null=True,)
+    loccode = models.CharField(max_length=length, blank=True, null=True,)
+
+    def __str__(self):
+        return '%s' % self.name
+
+
+class Ward(models.Model):
+    county_id = models.ForeignKey('County', on_delete=models.CASCADE)
+    subcounty_id = models.ForeignKey('SubCounty', on_delete=models.CASCADE)
+    name = models.CharField(max_length=length, blank=True, null=True,)
+    lat = models.CharField(max_length=length, blank=True, null=True,)
+    lng = models.CharField(max_length=length, blank=True, null=True,)
+    category = models.CharField(max_length=length, blank=True, null=True,)
+    code = models.CharField(max_length=length, blank=True, null=True,)
+    loccode = models.CharField(max_length=length, blank=True, null=True,)
+
+    def __str__(self):
+        return '%s' % self.name
 
 class Elements(models.Model):    
   id = models.AutoField(primary_key=True)
@@ -124,8 +151,6 @@ class KilimoData(models.Model):
     null=False
     )
 
-
-
   subdomain = models.ForeignKey(
     Subdomain, 
     on_delete=models.PROTECT,
@@ -137,9 +162,13 @@ class KilimoData(models.Model):
     on_delete=models.PROTECT, 
     null=False
     )
-
-  subcounty = models.CharField(max_length=256, null=True)   
-  ward = models.CharField(max_length=256, null=True) 
+  
+  subcounty = models.ForeignKey(SubCounty, 
+    on_delete=models.PROTECT, 
+    null=True)   
+  ward = models.ForeignKey(Ward, 
+    on_delete=models.PROTECT, 
+    null=True) 
 
   elements = models.ForeignKey(
     Elements, 
