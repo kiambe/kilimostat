@@ -160,15 +160,15 @@ class KilimoData(models.Model):
   county = models.ForeignKey(
     County, 
     on_delete=models.PROTECT, 
-    null=False
+    null=False,blank=True
     )
   
   subcounty = models.ForeignKey(SubCounty, 
     on_delete=models.PROTECT, 
-    null=True)   
+    null=True,blank=True)   
   ward = models.ForeignKey(Ward, 
     on_delete=models.PROTECT, 
-    null=True) 
+    null=True,blank=True) 
 
   elements = models.ForeignKey(
     Elements, 
@@ -185,6 +185,7 @@ class KilimoData(models.Model):
     )
 
   refyear = models.PositiveIntegerField(default=2021, validators=[MinValueValidator(1900), MaxValueValidator(2090)])
+  refmonth = models.CharField(null=True,blank=True,default="Jan")
 
   value = models.FloatField()
   unit = models.ForeignKey(
