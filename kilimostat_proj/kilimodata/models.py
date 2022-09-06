@@ -185,7 +185,7 @@ class KilimoData(models.Model):
     )
 
   refyear = models.PositiveIntegerField(default=2021, validators=[MinValueValidator(1900), MaxValueValidator(2090)])
-  refmonth = models.CharField(null=True,blank=True,default="Jan")
+  refmonth = models.CharField(null=True,blank=True,default="Jan",max_length=30)
 
   value = models.FloatField()
   unit = models.ForeignKey(
