@@ -122,10 +122,10 @@ class apputils(APIView):
         item_category_data = ItemCategory.objects.order_by("name")
         items_category_ser = ItemCategorySerializer(item_category_data, many=True).data
         
-        unit_data = Unit.objects.all()
+        unit_data = Unit.objects.order_by("name")
         unit_ser = UnitSerializer(unit_data, many=True).data
         
-        county_data = County.objects.all()
+        county_data = County.objects.order_by("name")
         county_data_ser = CountySerializer(county_data, many=True).data
         
         items_specify = ItemSpecify.objects.all()
